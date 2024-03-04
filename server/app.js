@@ -1,7 +1,8 @@
 const express = require("express");
+const fs = require("fs");
 const app = express();
 const port = 3000;
-const indexHTML = "./views/index.html/";
+const indexHTML = "index.html";
 
 app.get("/", (req, res) => {
   res.send(indexHTML);
