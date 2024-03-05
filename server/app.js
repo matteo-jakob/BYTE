@@ -55,7 +55,7 @@ app.post("/register", async (req, res) => {
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     // Respond with success message
-    alert("User Created Sucessfully. Log In now")
+
     res.redirect("/login");
   } catch (err) {
     // Handle errors
@@ -68,26 +68,17 @@ app.post("/login", async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-    // Find user by username
     const user = await User.findOne({ username });
+    console.log(username, password, user.password);
     if (!user) {
-      // If user not found, respond with error
       return res.status(400).send("Cannot find user");
     }
-    // Check password validity
     if (await bcrypt.compare(password, user.password)) {
-      // If password matches, create login message and respond
-      const loginMessage = `Hello ${username}`;
-      res.render("home", {
-        title: "Login",
-        loginMessage: loginMessage,
-      });
+      res.send(fs.readFileSync("views/index.html", "utf8"));
     } else {
-      // If password doesn't match, respond with error
       res.status(401).send("Wrong username or password");
     }
   } catch (err) {
-    // Handle errors
     res.status(500).send(err.message);
   }
 });
