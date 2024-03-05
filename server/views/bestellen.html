@@ -4,12 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bestellen</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <h1>Bestellen</h1>
-    <ul id="items">
-      <li>Beispielitem</li>
-    </ul>
+    <h2>Speisekarte</h2>
+    <ul id="items"></ul>
+    <h2>Warenkorb</h2>
+    <ul id="warenkorb"></ul>
+    <h3>
+      Total:
+      <p id="total"></p>
+    </h3>
+
+    <script>
+      function addToBasket(itemId) {
+        console.log("Sending body:", JSON.stringify({ id: itemId }));
+        fetch("/add-warenkorb", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: itemId }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Item added to basket!");
+              location.reload();
+            } else {
+              throw new Error("Failed to add item to basket");
+            }
+          })
+          .catch((error) =>
+            console.error("Error adding item to basket:", error)
+          );
+      }
+
+      fetch("/waren")
+        .then((response) => response.json())
+        .then((items) => {
+          const itemsList = document.getElementById("items");
+          items.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item.item;
+            const kaufenButton = document.createElement("button");
+            kaufenButton.textContent = "Kaufen";
+            kaufenButton.addEventListener("click", () => addToBasket(item.id));
+            const priceText = document.createElement("p");
+            priceText.textContent = "Preis:" + item.price;
+            const image = document.createElement("img");
+            image.src = item.image_url;
+            li.appendChild(image);
+            li.appendChild(priceText);
+            li.appendChild(kaufenButton);
+            itemsList.appendChild(li);
+          });
+        })
+        .catch((error) => console.error("Error fetching items:", error));
+
+      function delToBasket(itemId) {
+        console.log("Sending deletion body:", JSON.stringify({ id: itemId }));
+        fetch("/del-warenkorb", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: itemId }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Item removed basket!");
+              location.reload();
+            } else {
+              throw new Error("Failed to remove item to basket");
+            }
+          })
+          .catch((error) =>
+            console.error("Error removing item from basket:", error)
+          );
+      }
+
+      fetch("/warenkorb")
+        .then((response) => response.json())
+        .then((items) => {
+          const itemsList = document.getElementById("warenkorb");
+          let total = 0;
+          if (items) {
+            items.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = item.item;
+              const loeschenButton = document.createElement("button");
+              loeschenButton.textContent = "Löschen";
+              loeschenButton.addEventListener("click", () =>
+                delToBasket(item.id)
+              );
+              const priceText = document.createElement("a");
+              priceText.textContent = "Preis:" + item.price;
+              const image = document.createElement("img");
+              image.src = item.image_url;
+              li.appendChild(image);
+              li.appendChild(priceText);
+              li.appendChild(loeschenButton);
+              itemsList.appendChild(li);
+              total = total + item.price;
+            });
+          }
+          const totalElement = document.getElementById("total");
+          totalElement.textContent = total;
+        });
+    </script>
   </body>
 </html>
