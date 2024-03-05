@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 const express = require("express");
 const fs = require("fs");
 
@@ -13,24 +10,6 @@ app.use(express.static("../client"));
 // ---------------- Variables ----------------
 
 const port = 3000;
-
-// ---------------- Datenbank ----------------
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC40tpqld1TE-bRSxx-CW5sZoqlJupyWKM",
-  authDomain: "chatapp-640d1.firebaseapp.com",
-  databaseURL:
-    "https://chatapp-640d1-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "chatapp-640d1",
-  storageBucket: "chatapp-640d1.appspot.com",
-  messagingSenderId: "255851912404",
-  appId: "1:255851912404:web:68006c1816932e2edd6f41",
-  measurementId: "G-ME4139TW4E",
-};
-
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 // ------------------- API -------------------
 
