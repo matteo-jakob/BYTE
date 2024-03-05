@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 
-const indexHTML = fs.readFileSync("views/index.html", "utf8");
-const bestellenHTML = fs.readFileSync("views/bestellen.html", "utf8");
 const loginHTML = fs.readFileSync("views/login.html", "utf8");
 const { loadavg } = require("os");
 const { dirname } = require("path");
@@ -99,7 +97,7 @@ app.post("/login", async (req, res) => {
 // ------------------- API -------------------
 
 app.get("/", (req, res) => {
-  res.send(indexHTML);
+  res.send(fs.readFileSync("views/index.html", "utf8"));
 });
 
 var warenkorb = [];
