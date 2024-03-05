@@ -2,16 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
-    <h1>BYTE</h1>
-    <p>Bestelle dein Essen online</p>
-    <a href="/bestellen">Jetzt einkaufen</a>
-    <a href="/login"><strong>Login/Register</strong></a>
+    <nav id="desktop-nav">
+      <div class="logo"><b>BYTE</b></div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#contact">Contact</a></li>
+          <a id="dark-mode-btn" onclick="toggleDarkMode()">🌟</a>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">BYTE</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+          <a id="dark-mode-btn" onclick="toggleDarkMode()">🌟</a>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+      <div class="section__pic-container">
+        <img
+          src="img/Silverware-PNG-901944119.png"
+          alt="John Doe profile picture"
+        />
+      </div>
+      <div class="section__text">
+        <h1 class="title">Grab a BYTE</h1>
+        <p class="section__text__p2">With us</p>
+        <div class="btn-container"></div>
+        <a href="bestellen.html" class="button">Order</a>
+      </div>
+    </section>
 
-    <img src="https://cdn.pixabay.com/photo/2014/06/10/15/47/pizza-366111_960_720.jpg" alt="">
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Us</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="img/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="mailto:admin@byte.com">hr@byte.com</a></p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>Copyright &#169; 2023 BBBaden. All Rights Reserved.</p>
+    </footer>
+    <script>
+      function toggleMenu() {
+        const menu = document.querySelector(".menu-links");
+        const icon = document.querySelector(".hamburger-icon");
+        menu.classList.toggle("open");
+        icon.classList.toggle("open");
+      }
+      const body = document.body;
+
+      function toggleDarkMode() {
+        body.classList.toggle("dark-mode");
+      }
+    </script>
   </body>
 </html>

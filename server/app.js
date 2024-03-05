@@ -9,8 +9,6 @@ const { loadavg } = require("os");
 const { dirname } = require("path");
 const MongoClient = require("mongodb").MongoClient;
 
-const bodyParser = require("body-parser");
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
