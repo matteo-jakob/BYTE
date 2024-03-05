@@ -56,7 +56,6 @@ app.post("/register", async (req, res) => {
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     // Respond with success message
-    alert("User Created Sucessfully. Log In now")
     res.redirect("/login");
   } catch (err) {
     // Handle errors
